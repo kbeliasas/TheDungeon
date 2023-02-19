@@ -10,12 +10,13 @@ import com.badlogic.gdx.utils.Disposable;
 
 public class Player implements Disposable {
 
-    public static final int MOVE_SPEED = 32 * 3;
+    public static final int MOVE_SPEED = 3;
     private static final int FRAME_COLS = 3, FRAME_ROWS = 4;
     public float position_x;
     public float position_y;
 
     private Animation<TextureRegion> walkAnimation;
+    private Texture texture;
     private float stateTime;
     private World world;
 
@@ -24,6 +25,7 @@ public class Player implements Disposable {
         position_x = 10;
         position_y = 12;
         this.world = world;
+        texture = new Texture(Gdx.files.internal("Soldier.png"));
         var walkSheet = new Texture(Gdx.files.internal("Soldier 01-1.png"));
 
         TextureRegion[][] tmp = TextureRegion.split(walkSheet,
@@ -43,7 +45,8 @@ public class Player implements Disposable {
     public void render(Batch batch, float deltaTime) {
         stateTime += deltaTime;
         var currentFrame = walkAnimation.getKeyFrame(stateTime, true);
-        batch.draw(currentFrame, position_x, position_y);
+        batch.draw(texture, position_x, position_y);
+//        batch.draw(currentFrame, position_x, position_y);
     }
 
     private void create_body() {
@@ -58,7 +61,7 @@ public class Player implements Disposable {
 
 // Create a circle shape and set its radius to 6
         PolygonShape box = new PolygonShape();
-        box.setAsBox(10, 10);
+        box.setAsBox(1, 1);
 
 // Create a fixture definition to apply our shape to
         FixtureDef fixtureDef = new FixtureDef();
@@ -74,6 +77,6 @@ public class Player implements Disposable {
 
     @Override
     public void dispose() {
-
+        texture.dispose();
     }
 }

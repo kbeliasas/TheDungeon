@@ -36,8 +36,8 @@ public class TheDungeonGame extends ApplicationAdapter {
 //        camera.update();
 
         tiledMap = new TmxMapLoader().load("path.tmx");
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        viewport = new ExtendViewport(32, 18);
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1 / 32f);
+        viewport = new ExtendViewport(16, 9);
         Box2D.init();
         world = new World(new Vector2(0, 0), true);
         player = new Player(world);
@@ -60,6 +60,7 @@ public class TheDungeonGame extends ApplicationAdapter {
 //        spriteBatch.draw(currentFrame, player_x, player_y); // Draw current frame at (50, 50)
 //        spriteBatch.end();
         var batch = tiledMapRenderer.getBatch();
+        batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
         player.render(batch, deltaTime);
         batch.end();
