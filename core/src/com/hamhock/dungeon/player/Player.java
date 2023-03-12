@@ -45,7 +45,7 @@ public class Player implements Disposable {
     public void render(Batch batch, float deltaTime) {
         stateTime += deltaTime;
         var currentFrame = walkAnimation.getKeyFrame(stateTime, true);
-        batch.draw(texture, position_x, position_y);
+        batch.draw(texture, position_x, position_y, 1, 1);
 //        batch.draw(currentFrame, position_x, position_y);
     }
 
